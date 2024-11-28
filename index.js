@@ -75,11 +75,20 @@ previousBtn.addEventListener('click', prevImage);
 
 const cartBtn = document.querySelector('.cart-btn');
 const cartWRP = document.querySelector('.cart-wrp');
-/* display and none display cart */
+
+// Toggle cart visibility
 cartBtn.addEventListener('click', () => {
+    /* open shopping cart */
     cartWRP.classList.toggle("invisible");
 });
 
+// Close the cart when clicking anywhere outside
+document.addEventListener('click', (event) => {
+    // Check if the click is outside the cart wrapper and cart button
+    if (!cartWRP.contains(event.target) && !cartBtn.contains(event.target)) {
+        cartWRP.classList.add("invisible");
+    }
+});
 
 /* ---------------------- */
 /* add to cart and remove products */
@@ -132,6 +141,7 @@ function deleteItem() {
 const lightbox = document.querySelector('.lightbox');
 const mainThumbNail = document.querySelector('.main-thumbnail');
 const closeLightboxBtn = document.querySelector('.close-lightbox');
+const lightBoxContainer = document.querySelector('.lightbox-container');
 
 /* open light box , we have to remove invisible*/
 mainThumbNail.addEventListener('click', () => {
@@ -143,7 +153,15 @@ closeLightboxBtn.addEventListener('click', () => {
     lightbox.classList.add("invisible");
 });
 
-
+/* close light box without X icon (click anywhere) */
+document.addEventListener('click', (event) => {
+    if (!closeLightboxBtn.contains(event.target) &&
+        !mainThumbNail.contains(event.target) &&
+        !lightBoxContainer.contains(event.target)) {
+            
+        lightbox.classList.add("invisible");
+    }
+});
 
 
 // Select necessary DOM elements
@@ -200,5 +218,3 @@ outsideThumbnails.forEach((thumbnail, index) => {
 
 // Initialize with the first image
 updateMainImages(currentIndex);
-
-
